@@ -1,0 +1,12 @@
+FROM golang:1.17.5-alpine AS debugger_srv
+
+RUN (echo 'nameserver 8.8.8.8' >> /etc/resolv.conf || echo "ok") && (apk add --no-cache bash git tzdata build-base ca-certificates && update-ca-certificates || echo "ok")
+RUN (echo 'nameserver 8.8.8.8' > /etc/resolv.conf || echo "ok") && (apk add --no-cache bash git tzdata build-base ca-certificates && update-ca-certificates || echo "ok")
+RUN go get github.com/go-delve/delve/cmd/dlv
+
+FROM debugger_srv
+WORKDIR /app
+COPY ./bin/main ./main
+RUN chmod 777 ./main
+EXPOSE 80 2345
+CMD ["dlv", "--listen=:2345", "--headless=true", "--api-version=2", "--accept-multiclient", "--log", "exec", "/app/main"]
