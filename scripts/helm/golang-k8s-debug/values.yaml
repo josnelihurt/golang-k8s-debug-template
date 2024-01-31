@@ -43,12 +43,12 @@ service:
 
 ingress:
   enabled: true
-  annotations: {}
-  kubernetes.io/ingress.class: nginx
-  kubernetes.io/tls-acme: "true"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  path: /
   hosts:
-    - host: golang-k8s-debug-srv.local
-      path: /
+    - golang-k8s-debug-srv.local
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
