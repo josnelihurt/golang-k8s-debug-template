@@ -28,7 +28,7 @@ spec:
       http:
         paths:
           - path: {{ $ingressPath }}
-            pathType: Exact
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}

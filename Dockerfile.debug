@@ -9,4 +9,5 @@ WORKDIR /app
 COPY ./bin/main ./main
 RUN chmod 777 ./main
 EXPOSE 80 2345
+# CMD ["/app/main"]
 CMD ["dlv", "--listen=:2345", "--headless=true", "--api-version=2", "--accept-multiclient", "--log", "exec", "/app/main"]
